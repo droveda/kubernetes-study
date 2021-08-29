@@ -18,6 +18,17 @@
 * cd Downloads/
 * sudo dpkg -i "virtual box deb file".deb
 
+## Minikube install Mac m1 - new
+* first Install "Docker desktop" for mac m1 (dmg file - obs: This will install **kubeclt** as well)
+* curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-arm64
+* sudo chmod +x minikube-darwin-arm64
+* mv minikube-darwin-arm64 minikube
+* sudo mv minikube /usr/local/bin
+* to test it
+  * minikube version
+  * minikube --help
+  * minikiube start  
+
 ## Kubernetes commands
 * minikube start 
     * (--vm-driver=virtualbox, I ran without this and it worked) (start the minikube - (it is necessary do execute this command every time you start the SO))
