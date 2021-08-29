@@ -18,7 +18,12 @@
 * cd Downloads/
 * sudo dpkg -i "virtual box deb file".deb
 
-## Minikube install Mac m1 - new
+## Another option for Mac m1 - (This one is very easy to do, minikube is not needed)
+* first Install "Docker desktop" for mac m1 (dmg file - obs: This will install **kubeclt** as well)
+* go to **preferences** mark "Enable Kubernetes" then click on **Apply and restart**
+* to test it, open terminal and type: kubectl get nodes
+
+## Minikube install Mac m1 - new (use the other option it is better)
 * first Install "Docker desktop" for mac m1 (dmg file - obs: This will install **kubeclt** as well)
 * curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-arm64
 * sudo chmod +x minikube-darwin-arm64
@@ -42,3 +47,18 @@
 * kubectl get nodes -o wide
 * kubectl describe pod portal-noticias (check the creation logs of a pod - useful to check errors)
 * kubectl get configmap
+
+# Kubernetes Basics
+* cluster (Master, nodes)
+  * master (Control Plane -> (api, c-m, sched, etcd))
+    * Gerenciar os cluster
+    * Manter e atualizar o estado desejado
+    * Receber e executar novos comandos
+  * node (Nodes -> (Kubelet, K-Proxy))
+    * Executar as aplicacoes
+* pod = recurso que encapsula um container no kubernetes
+* kubectl
+  * Criar
+  * Ler
+  * Atualizar
+  * Remover 
