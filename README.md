@@ -109,3 +109,73 @@
 * Permite reutilizacao e desacoplamento
 * kubectl get configmap
 * kubectl describe configmap db-configmap
+
+# Kubernetes Course 2
+## ReplicaSets
+* Estrutura que pode encapsular um ou mais pods
+* Posibilitar ter N replicas de um pod, deixando a app sempre disponivel
+  * arquivo exemplo: portal-noticias-replicaset.yaml
+* user+password sistema: admin/admin
+* kubectl get rs
+
+## Deployments
+* Camada acima de um replicaset
+* ao se definir um deployment estamos automaticamente definindo um replicaset
+* permite gerenciamento e controle de versao das alteracoes
+* arquivo de exemplo: nginx-deployment.yaml
+* kubectl apply -f nginx-deployment.yaml
+* kubectl get deployments
+* kubectl rollout history deployment nginx-deployment
+* kubectl apply -f nginx-deployment.yaml --record
+* kubectl rollout history deployment nginx-deployment
+* kubectl annotate deployment nginx-deployment kubernetes.io/change-cause="definindo a imagem com versao latest"
+* kubectl rollout history deployment nginx-deployment
+* kubectl rollout undo deployment nginx-deployment --to-revision=1
+
+## Ajustando o sistema para usar Deployments
+* Arrumando a casa
+  * kubectl delete deployment nginx-deployment
+  * kubectl delete -f portal-noticias-replicaset.yaml
+* kubectl apply -f portal-noticias-deployment.yaml 
+* kubectl delete pod sistema-noticias
+* kubectl apply -f sistema-noticias-deployment.yaml
+* kubectl delete pod db-noticias
+* kubectl apply -f db-noticias-deployment.yaml
+
+## Persistindo dados com o Kubernetes
+* Volumes
+  * hostPath
+    * monta um volume similar aos volumes do docker
+  * Configurar o volume no docker desktop, Settings -> Resources -> File Sharing
+  * criar arquivo pod-volume.yaml
+  * kubectl apply -f pod-volume.yaml
+  * kubectl exec -it pod-volume --container nginx-container -- bash
+    * testar ver se o volume foi criado e se esta tudo ok
+
+## StatefulSet
+* create file: sistema-noticias-statefulset.yaml
+* kubectl apply -f sistema-noticias-statefulset.yaml
+* kubectl get deployments
+* delete deployments sistema-noticias-deployment
+
+* criar arquivos: imagens-pvc.yaml, sessao-pvc-yaml
+* atualizar o arquivo sistema-noticias-statefulset.yaml
+* kubectl apply -f imagens-pvc.yaml 
+* kubectl apply -f sessao-pvc.yaml 
+* kubectl get pvc
+* kubectl get pv
+* kubectl get sc
+* kubectl delete -f sistema-noticias-statefulset.yaml
+
+## Probes (Livenes probe)
+* Livenes Probe
+  * see file portal-noticias-deployment.yaml (livenessProbe)
+* Readiness Probe
+  *  * see file portal-noticias-deployment.yaml (readinessProbe)
+
+## Horizontal Pod Autoscaler
+* see file portal-noticias-hpa.yaml and portal-noticias-deployment.yaml
+* kubectl apply -f portal-noticias-deployment.yaml 
+* kubectl apply -f portal-noticias-hpa.yaml
+* kubectl get hpa
+
