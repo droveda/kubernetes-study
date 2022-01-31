@@ -57,7 +57,7 @@
   * node (Nodes -> (Kubelet, K-Proxy))
     * Executar as aplicacoes
 * pod = recurso que encapsula um container no kubernetes
-* kubectl
+* kubectl (Declarativo ou Imperativo) ferramenta utilizada para se comunicar com a API
   * Criar
   * Ler
   * Atualizar
@@ -66,8 +66,13 @@
 ## Pods
 * eh uma capsula, pode conter um ou mais containers
   * um pod ganha um endereco ip ex: 10.0.0.1 pode ter n containers em portas diferentes, ex: container1 -> 8080, container2 -> 9000
+  * caso o container(s) falhe o pod vai ser removido e o kubernetes irá criar um novo pod (possívelmente com outro IP)
+  * Containers dentro do pod compartilham o mesmo IP e podem se comunicar via **localhost**
+  * Podem compartilhar volumes
+  * Pod (10.0.0.1) <----> Pod (10.0.0.2)
+  * Um pod é dado como encerrado quando todos os containers dentro dele param de funcionar
 
-## Criando um pod
+## Criando um pod (Maneira imperativa)
 * kubectl run nginx-pod --image=nginx:latest
 * kubectl get pods
 * kubectl get pods --watch
