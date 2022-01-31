@@ -104,7 +104,12 @@
 1. ClusterIP -> Possibilita a comunicação de diferentes pods dentro do mesmo cluster (Nao possibilita acesso de fora do cluster)
    1. ver exemplo no arquivo portal_noticias/svc-pod-2.yaml
 2. NodePort -> Abre/Permite a comunicacao com o mundo externo, tb funciona como ClusterIP
+   1. Para acesso externo deve ser utilizado o IP do node. Pode executar o comando: (kubectl get nodes -o wide) para obter o INTERNAL-IP no Linux
+   2. No windows/mac com docker-desktop pode utilizar o 'localhost'
+   3. ver exemplo no arquivo portal_noticias/svc-pod-1.yaml
 3. LoadBalancer -> Utilizam automaticamente os balanceadores de carga de cloud providers, tb sao NodePort e ClusterIP
+   1. Abre comunicação para o mundos externo usando o Load Balancer do provedor! (AWS, Google Cloud, Azure)
+   2. ver exemplo no arquivo portal_noticias/svc-pod-1-loadbalancer.yaml
 
 * kubectl get nodes -o wide (exibe os nodes)
 * kubectl delete pods --all
