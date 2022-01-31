@@ -101,13 +101,19 @@
 * Proveem IP's fixos para comunicacao
 * Provem um DNS para um ou mais pods
 * Sao capazes de fazer balancemamento de carga
-1. ClusterIP
-2. NodePort -> Abre/Permite a comunicacao com o mundo externo, tb funciona como ClusterIPs
+1. ClusterIP -> Possibilita a comunicação de diferentes pods dentro do mesmo cluster (Nao possibilita acesso de fora do cluster)
+   1. ver exemplo no arquivo portal_noticias/svc-pod-2.yaml
+2. NodePort -> Abre/Permite a comunicacao com o mundo externo, tb funciona como ClusterIP
 3. LoadBalancer -> Utilizam automaticamente os balanceadores de carga de cloud providers, tb sao NodePort e ClusterIP
 
 * kubectl get nodes -o wide (exibe os nodes)
 * kubectl delete pods --all
 * kubectl delete svc --all
+
+## Labels
+* !IMPORTANTE -> As labels servem para etiquetar nossos recursos, assim conseguimos dizer que um Pod com a label 'xxx' deve ser vinculada a um Service (ClusterIP por exemplo)
+  * ver exemplo nos arquivos (pod-2.yaml e svc-pod-2.yaml)
+* Através da Labels um service sabe quais pods ele deve gerenciar. (No pod usa 'label', no Service usa 'selector')
 
 ## ConfigMap
 * Serve para guardar configuracoes, ex: variaveis de ambiente
