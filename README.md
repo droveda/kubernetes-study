@@ -71,6 +71,7 @@
   * Podem compartilhar volumes
   * Pod (10.0.0.1) <----> Pod (10.0.0.2)
   * Um pod é dado como encerrado quando todos os containers dentro dele param de funcionar
+  * pods são efemeros
 
 ## Criando um pod (Maneira imperativa)
 * kubectl run nginx-pod --image=nginx:latest
@@ -131,6 +132,7 @@
 * Estrutura que pode encapsular um ou mais pods
 * Posibilitar ter N replicas de um pod, deixando a app sempre disponivel
   * arquivo exemplo: portal-noticias-replicaset.yaml
+  * Possibilita um numero desejavel de replicas, exemplo sempre 3 pods rodando de um MS
 * user+password sistema: admin/admin
 * kubectl get rs
 
@@ -160,13 +162,23 @@
 
 ## Persistindo dados com o Kubernetes
 * Volumes
+  * Volumes possuem ciclos de vida independentes dos containers. Porém, sao dependentes dos pods.
+    * Se todos os containers morrerem e o pod falhar o volume será removido. Porém os arquivos continuam na máquina host.
   * hostPath
     * monta um volume similar aos volumes do docker
-  * Configurar o volume no docker desktop, Settings -> Resources -> File Sharing
-  * criar arquivo pod-volume.yaml
-  * kubectl apply -f pod-volume.yaml
-  * kubectl exec -it pod-volume --container nginx-container -- bash
-    * testar ver se o volume foi criado e se esta tudo ok
+    * Mao na massa
+      * Configurar o volume no docker desktop, Settings -> Resources -> File Sharing
+      * criar arquivo pod-volume.yaml
+      * kubectl apply -f pod-volume.yaml
+      * kubectl exec -it pod-volume --container nginx-container -- bash
+        * testar ver se o volume foi criado e se esta tudo ok
+  * Persistent Volume
+    * Como dito, existem diversos tipos de plugins de volumes que podem ser utilizados pelos Cloud Providers, cada um com seu respectivo modo de acesso e nomes. Por exemplo, o GCEPersistentDisk que usamos nos vídeos anteriores, permite apenas a criação de um PersistentVolume em modo de ReadWriteOnce ou ReadOnlyMany.
+    * **https://kubernetes.io/docs/concepts/storage/persistent-volumes/**
+    * PersistentVolumes possuem ciclos de vida independentes de Pods
+    * PersistentVolumes persistem dados de pods como um todo
+    * É necessário um PersistentVolumeClaim para acessar um PersistentVolume.
+    * Precisamos de um PersistentVolumeClaim para acessar um PersistentVolume
 
 ## StatefulSet
 * create file: sistema-noticias-statefulset.yaml
