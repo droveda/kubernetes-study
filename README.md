@@ -179,12 +179,29 @@
     * PersistentVolumes persistem dados de pods como um todo
     * É necessário um PersistentVolumeClaim para acessar um PersistentVolume.
     * Precisamos de um PersistentVolumeClaim para acessar um PersistentVolume
+  * Persistent Volume Claim (PVC)
+    * Permite fazer um claim a um PV.
+
+## Storage Class
+* Gerencia os discos e volumes dinâmicamente
+  * o Persistent Volume é criado dinamicamente assim que um PVC é vinculado em um Storage Class
+  * tem especificacoes especificas por Cloud Provider
+  * Storage Classes fornecem dinamismo para criação de PersistentVolumes conforme demanda.
+  * kubectl get sc
 
 ## StatefulSet
+* Similar ao deployment porém voltado a pods que devem manter o seu estado stateful
+  * O conteúdo do pod nao sera perdido ao reiniciar
+  * StatefulSets podem ser usados quando estados devem ser persistidos.
+  * StatefulSets usam PersistentVolumes e PersistentVolumeClaims para persistência de dados.
 * create file: sistema-noticias-statefulset.yaml
 * kubectl apply -f sistema-noticias-statefulset.yaml
 * kubectl get deployments
 * delete deployments sistema-noticias-deployment
+* create file: images-pvc.yaml
+* create file: sessao-pvc.yaml
+* kubectl apply -f os 2 pvcs acima
+* (foi modificado, delete e depois) kubectl apply -f sistema-noticias-statefulset.yaml
 
 * criar arquivos: imagens-pvc.yaml, sessao-pvc-yaml
 * atualizar o arquivo sistema-noticias-statefulset.yaml
@@ -196,10 +213,15 @@
 * kubectl delete -f sistema-noticias-statefulset.yaml
 
 ## Probes (Livenes probe)
+* Tornar visível ao Kubernetes que uma aplicação não está se comportando da maneira esperada.
+* Além do HTTP, também podemos fazer verificações via TCP
 * Livenes Probe
+  * LivenessProbes são para saber se a aplicação está saudável e/ou se deve ser reiniciada
+  * Prova de vida que a aplicação dentro de um pod está funcionando
   * see file portal-noticias-deployment.yaml (livenessProbe)
 * Readiness Probe
-  *  * see file portal-noticias-deployment.yaml (readinessProbe)
+  * ReadinessProbes são para saber se a aplicação já está pronta para receber requisições depois de iniciar
+  * see file portal-noticias-deployment.yaml (readinessProbe)
 
 ## Horizontal Pod Autoscaler
 * see file portal-noticias-hpa.yaml and portal-noticias-deployment.yaml
