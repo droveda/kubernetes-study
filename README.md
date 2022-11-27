@@ -92,7 +92,8 @@
 * kubectl apply -f portal-noticias.yaml 
 * kubectl get pods --watch
 * kubectl describe pod portal-noticias (with this command we can see for example the pod IP and other infos)
-* kubectl exec -it portal-noticias -- bash
+* kubectl exec -it portal-noticias -- bash (with this command we can access the container inside the pod)
+* kubectl exec -it pod-volume --container nginx-container -- bash (with this command we can access the container inside the pod)
 * kubectl get pods -o wide
 * kubectl apply -f svc-pod-2.yaml
 * kubectl get svc (Exibe os services)
